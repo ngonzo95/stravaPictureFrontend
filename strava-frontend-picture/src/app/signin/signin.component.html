@@ -1,0 +1,7 @@
+<div *ngIf="this.loginCredentails == null; else elseBlock">
+  <button (click)="socialSignIn('google')">Sign in with Google</button>
+</div>
+
+<ng-template #elseBlock>
+  <button (click)="socialSignOut()">Sign out</button>
+</ng-template>
