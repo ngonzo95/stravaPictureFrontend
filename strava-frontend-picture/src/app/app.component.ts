@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-declare let L;
+import { MapSyncService } from './services/map-sync.service';
+import { Marker } from './model/marker'
 
 @Component({
   selector: 'app-root',
@@ -8,22 +9,18 @@ declare let L;
 })
 export class AppComponent implements OnInit {
 
-    constructor() {
+  constructor(private mapSync: MapSyncService) { }
 
-    }
+  ngOnInit() {
+    this.mapSync.generateBaseMap()
 
-    ngOnInit() {
-        const map = L.map('map').setView([39.8333,-98.58333], 3);
+    let markerList: Marker[] = [];
 
-        L.tileLayer( 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
-                {
-                  "attribution": "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>",
-                  "detectRetina": false,
-                  "maxZoom": 18,
-                  "minZoom": 1,
-                  "noWrap": false,
-                  "subdomains": "abc"
-}).addTo(map);
-    }
+    markerList.push(new Marker("map1", "test", [41,-96]))
+    markerList.push(new Marker("map2", "test 2", [43,-92]))
+
+    this.mapSync.fillBaseMap(markerList)
+
+  }
 
 }

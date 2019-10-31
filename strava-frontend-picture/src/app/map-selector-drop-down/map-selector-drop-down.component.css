@@ -1,0 +1,11 @@
+button{
+  pointer-events: auto;
+}
+
+.dropdown-menu {
+  background: transparent;
+}
+
+.dropdown-item {
+  color: blue;
+}

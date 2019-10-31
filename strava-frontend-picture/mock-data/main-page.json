@@ -1,0 +1,10 @@
+{
+  "baseMap" : {
+    "center" : 3,
+    "cord" : [39.8333,-98.58333]
+    markers : {
+      "mapName" : "Avon"
+      "cord" : [39.8333,-98.58333]
+    }
+  }
+}

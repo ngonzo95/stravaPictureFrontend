@@ -9,7 +9,10 @@ import {
   AuthServiceConfig,
   GoogleLoginProvider,
 } from "angular-6-social-login";
+
 import { SigninComponent } from './signin/signin.component';
+import { MapSelectorDropDownComponent } from './map-selector-drop-down/map-selector-drop-down.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Configs for google auth
 export function getAuthServiceConfigs() {
@@ -27,18 +30,20 @@ export function getAuthServiceConfigs() {
 @NgModule({
   declarations: [
     AppComponent,
-    SigninComponent
+    SigninComponent,
+    MapSelectorDropDownComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SocialLoginModule,
+    NgbModule.forRoot(),
   ],
   providers: [
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

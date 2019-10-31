@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {
     AuthService,
-    GoogleLoginProvider
+    GoogleLoginProvider,
+    SocialUser
 } from 'angular-6-social-login';
-declare let loginCredentails
 
 @Component({
   selector: 'app-signin',
@@ -11,6 +11,7 @@ declare let loginCredentails
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
+  loginCredentails : SocialUser
   constructor( private socialAuthService: AuthService ) {}
 
   public socialSignIn(socialPlatform : string) {
