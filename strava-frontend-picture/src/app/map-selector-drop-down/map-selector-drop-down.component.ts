@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MapSyncService } from '../services/map-sync.service';
+import { UserDataServiceService } from '../services/user-data-service.service';
 
 
 @Component({
@@ -9,14 +10,18 @@ import { MapSyncService } from '../services/map-sync.service';
   styleUrls: ['./map-selector-drop-down.component.css']
 })
 export class MapSelectorDropDownComponent implements OnInit {
-  dropDownEntries:[string, string][];
-  constructor(private mapSync: MapSyncService) { }
+  dropDownEntries: [string, string][];
+  private _subscription
+  constructor(private mapSync: MapSyncService, private userDataService: UserDataServiceService) { }
 
   ngOnInit() {
-    this.dropDownEntries = Array.from(this.mapSync.fetchMapEntries());
+    this.dropDownEntries = this.userDataService.getAvailableMaps()
+    this._subscription = this.userDataService.availableMaps
+      .subscribe((value) => this.dropDownEntries = value)
+
   }
 
-  selectMap(mapId: string){
+  selectMap(mapId: string) {
     this.mapSync.setCurrentMap(mapId);
   }
 

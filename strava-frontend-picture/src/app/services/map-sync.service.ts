@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MapEditorService } from './map-editor.service';
 import { Marker } from '../model/marker'
+import { UserDataServiceService } from './user-data-service.service';
+import { BaseMap } from '../model/user';
+import { BackendApiServiceService } from './backend-api-service.service';
+import { RunMap } from '../model/run-map';
+import { Run } from '../model/run';
 
 @Injectable({
   providedIn: 'root'
@@ -8,51 +13,55 @@ import { Marker } from '../model/marker'
 export class MapSyncService {
 
   private _currentMapId: string;
-  private _availableMaps: Map<string, string>
 
-  constructor(private mapEditor: MapEditorService) {
+  constructor(private mapEditor: MapEditorService, private userDataService: UserDataServiceService, private api:BackendApiServiceService) {
     this._currentMapId = "baseMap";
-    this._availableMaps = new Map();
 
   }
+
+  initMap() {
+    this.mapEditor.createNewMap()
+  }
   /**
-   * This generates the homepage which is a basic map set at a predecided
-   * location
+   * This generates the baseMap based on the user's information and updates
+   * it accordingly
   **/
   generateBaseMap() {
-    this.mapEditor.createNewMap('baseMap')
-    this.mapEditor.setView('baseMap', [39.8333, -98.58333], 3);
-    this._availableMaps.set("baseMap", "Base Map");
-  }
-  /**
-   * fills the base map with markers
-   * @param {Marker[]} markerList all the markers that are to be added to the
-   * base map
-  **/
-  fillBaseMap(markerList: Marker[]) {
-    for (let marker of markerList) {
-      this.mapEditor.addMarker('baseMap', marker.cord,
-        marker.text, this.generateClickFunction(marker));
+    let baseMap: BaseMap = this.userDataService.getUserData().baseMap;
+    this.mapEditor.setView(baseMap.cord, baseMap.center);
 
-      this._availableMaps.set(marker.id, marker.text)
+    for (let marker of this.userDataService.getUserData().baseMap.markers) {
+      this.mapEditor.addMarker(marker.cord,
+        marker.text, this.generateClickFunction(marker));
     }
   }
 
-  /**
-   * This function returns the ids of all of the maps that we can choose from
-   * @return {IterableIterator<string>} iterator representing the ids for all
-   * available maps
-  **/
-  fetchMapIds(): IterableIterator<string> {
-    return this._availableMaps.keys();
+  generateRunMap(mapId:string){
+    let self = this
+    let userId = this.userDataService.getUserData().id
+    this.api.getRunMap(userId, mapId).subscribe(res =>
+    {
+      let runMap: RunMap = new RunMap(res)
+      self.mapEditor.setView(runMap.center, runMap.zoom)
+      self.userDataService.setRunMap(runMap)
+      for(let i in runMap.runs){
+        this.api.getRun(userId, runMap.runs[i]).subscribe(runRes => {
+          console.log("Index: " + i)
+          let run: Run = new Run(runRes)
+          self.mapEditor.addRun(run, parseInt(i))
+          self.userDataService.addRun(run.id)
+        })
+      }
+    })
+
   }
 
   /**
    * returns an iterable key value pair of ids and values of availableMaps
-   * @return {IterableIterator<string>}
+   * @return {[string, string][]}
   **/
-  fetchMapEntries(): IterableIterator<[string, string]>{
-    return this._availableMaps.entries()
+  fetchMapEntries(): [string, string][]{
+    return this.userDataService.getAvailableMaps()
   }
 
   /**
@@ -61,12 +70,23 @@ export class MapSyncService {
    * current map
   **/
   setCurrentMap(mapId: string) {
-    if (this._availableMaps.has(mapId)) {
-      this._currentMapId = mapId
-      console.log(this._currentMapId)
+    if (this.userDataService.getAvailableMaps().find((element) => {return element[0] == mapId})) {
+      if(this._currentMapId != mapId){
+        this.clearMap()
+        this._currentMapId = mapId
+        if(mapId == "baseMap"){
+          this.generateBaseMap()
+        } else {
+          this.generateRunMap(mapId)
+        }
+      }
     } else {
       throw new Error("Invalid MapId \"" + mapId + "\" used.")
     }
+  }
+
+  clearMap(){
+    this.mapEditor.clearMap()
   }
 
   /**

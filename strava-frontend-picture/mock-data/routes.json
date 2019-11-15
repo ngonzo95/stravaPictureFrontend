@@ -1,0 +1,8 @@
+{
+  "/api/users": "/users",
+  "/api/users/:id": "/users/:id",
+  "/api/users/:id/runs": "/users/:id/runs",
+  "/api/users/:id/runs/:runId": "/runs/:runId",
+  "/api/users/:id/runMaps" : "/users/:id/runMaps",
+  "/api/users/:id/runMaps/:runMapId": "/runMaps/:runMapId"
+}

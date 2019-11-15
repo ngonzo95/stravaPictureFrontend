@@ -1,21 +1,25 @@
 export class MockedMapEditorService {
-  public maps: Map<String, String[]>
+  public actions:String[] = []
   public icon
   constructor() {
-    this.maps = new Map();
   }
 
-  createNewMap(name: String) {
-    this.maps.set(name, [])
+  createNewMap() {
+    this.actions.push("createNewMap")
   }
-  addMarker(name: String, loc: Number[], text: String, clickFunction: Function) {
-    let actions: String[] = this.maps.get(name)
-    actions.push("addMarker [" + loc + "] " + text)
+
+  addMarker(loc: Number[], text: String, clickFunction: Function) {
+    this.actions.push("addMarker [" + loc + "] " + text)
   }
-  setView(name: String, center: Number[], defaultZoom: number) {
-    let actions: String[] = this.maps.get(name)
-    actions.push("SetView [" + center + "] " + defaultZoom)
+
+  setView(center: Number[], defaultZoom: number) {
+    this.actions.push("SetView [" + center + "] " + defaultZoom)
   }
+
+  clearMap(){
+    this.actions.push("clearMap")
+  }
+
 
 
 }

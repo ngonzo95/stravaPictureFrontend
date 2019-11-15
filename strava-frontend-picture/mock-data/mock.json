@@ -1,0 +1,107 @@
+{
+  "users": [{
+    "id": "118338807258584882449",
+    "email": "ngonzo95@gmail.com",
+    "baseMap": {
+      "center": 3,
+      "cord": [39.8333, -98.58333],
+      "markers": [{
+          "mapId": "42",
+          "text": "Avon",
+          "cord": [40, -100]
+        },
+        {
+          "mapId": "43",
+          "text": "Other Place",
+          "cord": [36, -94]
+        },
+        {
+          "mapId": "44",
+          "text": "last",
+          "cord": [33, -110]
+        }
+      ]
+    }
+  }],
+  "runMaps": [{
+      "id": "42",
+      "mapName": "Avon",
+      "userId": "1",
+      "center": [40, -100],
+      "zoom": 3,
+      "runs": ["1", "2", "3"]
+    },
+    {
+      "id": "43",
+      "mapName": "OtherPlace",
+      "userId": "1",
+      "center": [36, -94],
+      "zoom": 6,
+      "runs": ["4", "5"]
+    },
+    {
+      "id": "44",
+      "mapName": "lastPlace",
+      "userId": "1",
+      "center": [33, -110],
+      "zoom": 9,
+      "runs": ["6", "7", "8", "9"]
+
+    }
+  ],
+  "runs": [{
+    "id":"1",
+    "userId": "1",
+    "title": "Morning Run",
+    "gpx": [[40, -100], [40, -100.0003]]
+  },
+  {
+    "id":"2",
+    "userId": "1",
+    "title": "Morning Run",
+    "gpx": [[40, -100], [40.0000023, -99.9997]]
+  },
+  {
+    "id":"3",
+    "userId": "1",
+    "title": "Lunch Run",
+    "gpx": [[40, -100], [39.999, -100], [39.998, -100.0003] ]
+  },
+  {
+    "id":"4",
+    "userId": "1",
+    "title": "Lunch Run",
+    "gpx": [[36, -94], [36.0001, -94.0002] ]
+  },
+  {
+    "id":"5",
+    "userId": "1",
+    "title": "Morning Run",
+    "gpx": [[35.998, -93.9995], [36.0001, -94.0002] ]
+  },
+  {
+    "id":"6",
+    "userId": "1",
+    "title": "Morning Run",
+    "gpx": [[33, -110], [33.0001, -110.0002] ]
+  },
+  {
+    "id":"7",
+    "userId": "1",
+    "title": "Morning Run",
+    "gpx": [[33, -110], [33.0006, -109.9992] ]
+  },
+  {
+    "id":"8",
+    "userId": "1",
+    "title": "Lunch run",
+    "gpx": [[33, -110], [32.9996, -109.9992] ]
+  },
+  {
+    "id":"9",
+    "userId": "1",
+    "title": "Lunch run",
+    "gpx": [[33, -110], [33, -109.9992], [33.0001, -109.9992]  , [33.0005, -109.9985] ]
+  }
+]
+}

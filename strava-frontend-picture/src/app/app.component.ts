@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MapSyncService } from './services/map-sync.service';
 import { Marker } from './model/marker'
+import { UserDataServiceService } from './services/user-data-service.service';
+import { BackendApiServiceService } from './services/backend-api-service.service';
+import { User } from './model/user';
+import { UserResponse } from './response/user-response';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +13,10 @@ import { Marker } from './model/marker'
 })
 export class AppComponent implements OnInit {
 
-  constructor(private mapSync: MapSyncService) { }
+  constructor(private mapSync: MapSyncService, private userDataService:UserDataServiceService, private api:BackendApiServiceService) { }
 
   ngOnInit() {
-    this.mapSync.generateBaseMap()
-
-    let markerList: Marker[] = [];
-
-    markerList.push(new Marker("map1", "test", [41,-96]))
-    markerList.push(new Marker("map2", "test 2", [43,-92]))
-
-    this.mapSync.fillBaseMap(markerList)
-
+    this.mapSync.initMap()
   }
 
 }

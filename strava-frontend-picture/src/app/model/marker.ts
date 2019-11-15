@@ -8,4 +8,9 @@ export class Marker {
     this.text = text;
     this.cord = cord;
   }
+
+  static copy (marker: Marker): Marker{
+    return new Marker(marker.id, marker.text, [...marker.cord])
+
+  }
 }
