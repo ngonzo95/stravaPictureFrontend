@@ -104,14 +104,14 @@ describe('GetRun', () => {
     const dummyRun = {
       "id":"65",
       "userId": "1",
-      "title": "Morning Run",
-      "gpx": [[40, -100], [40, -100.0003]]
+      "name": "Morning Run",
+      "polyline": "some polyline"
     }
     service.getRun("1", "65" ).subscribe((run: RunResponse) => {
       expect(run.id).toBe("65");
       expect(run.userId).toBe("1");
-      expect(run.title).toBe("Morning Run");
-      expect(run.gpx).toEqual([[40, -100], [40, -100.0003]]);
+      expect(run.name).toBe("Morning Run");
+      expect(run.polyline).toEqual("some polyline");
     });
 
     let reqString = 'http://localhost:4200/api/users/1/runs/65'

@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 //Provides acess to leafletjs
 declare let L;
 import { LatLng, Map as LeafletMap, Icon, Polyline } from "leaflet"
+var polyUtil = require('polyline-encoded');
+// import './leafletplugin'
 import { Run } from '../model/run';
 
 @Injectable({
@@ -35,7 +37,8 @@ export class MapEditorService {
   addRun(run:Run, colorIndex: number){
     console.log("colorIndex: " + colorIndex)
     let color:string = this.getColor(colorIndex)
-    let line = L.polyline(run.gpx, {color:color}).addTo(this.map)
+    let latlng = polyUtil.decode(run.polyline);
+    let line = L.polyline(latlng, {color:color}).addTo(this.map)
     this._runs.set(run.id, line)
   }
 

@@ -3,7 +3,7 @@ import { RunResponse } from '../response/run-response';
 export class Run {
   id: string
   userId: string
-  gpx: [number, number][]
+  polyline: string
 
   constructor()
   constructor(runResoponse: RunResponse)
@@ -11,7 +11,7 @@ export class Run {
     if (runResoponse != null) {
       this.id = runResoponse.id
       this.userId = runResoponse.userId
-      this.gpx = runResoponse.gpx
+      this.polyline = runResoponse.polyline
     }
   }
 }
