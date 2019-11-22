@@ -48,20 +48,6 @@ describe('Basic getters and setters', () => {
     }
   })
 
-  it('get and set of user data should work as expected and give copies', () => {
-    mockUser.baseMap.center = 3
-    service.setUserData(mockUser)
-    expect(service.getUserData().baseMap.center).toEqual(3)
-    expect(service.getUserData().baseMap.markers[0].cord[0]).toEqual(40)
-    expect(service.getUserData().baseMap.cord[1]).toEqual(-98.58333)
-    mockUser.baseMap.center = 4
-    mockUser.baseMap.markers[0].cord[0] = 100
-    mockUser.baseMap.cord[1] =-1
-    expect(service.getUserData().baseMap.center).toBe(3)
-    expect(service.getUserData().baseMap.markers[0].cord[0]).toEqual(40)
-    expect(service.getUserData().baseMap.cord[1]).toEqual(-98.58333)
-  })
-
   it("add run should add the run that we want to the set and clear the set when asked", () => {
     service.addRun("test")
     service.addRun("test 2")
