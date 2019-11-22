@@ -17,8 +17,8 @@ describe('Basic getters and setters', () => {
       "id": "1",
       "email": "ngonzo95@gmail.com",
       "baseMap": {
-        "center": 3,
-        "cord": [39.8333, -98.58333],
+        "zoom": 3,
+        "center": [39.8333, -98.58333],
         "markers": [{
           "id": "42",
           "text": "Avon",

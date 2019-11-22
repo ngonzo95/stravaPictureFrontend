@@ -27,16 +27,16 @@ export class User {
 }
 
 export class BaseMap {
-  center: number
-  cord: [number, number]
+  zoom: number
+  center: [number, number]
   markers: Marker[]
 
   constructor()
   constructor(baseMapResponse: BaseMapResponse)
   constructor(baseMapResponse?: BaseMapResponse) {
     if (baseMapResponse != null) {
-      this.cord = baseMapResponse.cord
       this.center = baseMapResponse.center
+      this.zoom = baseMapResponse.zoom
       this.markers = []
       for (let markerResponse of baseMapResponse.markers) {
         this.markers.push(new Marker(markerResponse.mapId, markerResponse.text,
@@ -48,8 +48,8 @@ export class BaseMap {
   }
   static copy(baseMap: BaseMap): BaseMap {
     let newBaseMap = new BaseMap
-    newBaseMap.center = baseMap.center
-    newBaseMap.cord = [baseMap.cord[0], baseMap.cord[1]]
+    newBaseMap.zoom = baseMap.zoom
+    newBaseMap.center = [baseMap.center[0], baseMap.center[1]]
     newBaseMap.markers = []
     for (let marker of baseMap.markers){
       newBaseMap.markers.push(Marker.copy(marker))

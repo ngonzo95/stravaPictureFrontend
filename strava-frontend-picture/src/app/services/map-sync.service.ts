@@ -28,7 +28,7 @@ export class MapSyncService {
   **/
   generateBaseMap() {
     let baseMap: BaseMap = this.userDataService.getUserData().baseMap;
-    this.mapEditor.setView(baseMap.cord, baseMap.center);
+    this.mapEditor.setView(baseMap.center, baseMap.zoom);
 
     for (let marker of this.userDataService.getUserData().baseMap.markers) {
       this.mapEditor.addMarker(marker.cord,

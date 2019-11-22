@@ -42,8 +42,8 @@ describe('generateBaseMap', () => {
     mapEditorService.actions = []
     let name: string = "baseMap";
     let user: User = new User();
-    user.baseMap.center = 4;
-    user.baseMap.cord = [39.8333, -98.58334]
+    user.baseMap.zoom = 4;
+    user.baseMap.center = [39.8333, -98.58334]
 
     user.baseMap.markers.push(new Marker("markerId1", "test", [41, -96]))
     user.baseMap.markers.push(new Marker("markerId2", "test 2", [43, -92]))
@@ -82,8 +82,8 @@ describe('currentMap', () => {
   it('should default to baseMap when first generated', () => {
     let user: User = new User();
     user.baseMap = new BaseMap();
-    user.baseMap.center = 4;
-    user.baseMap.cord = [39.8333, -98.58334]
+    user.baseMap.zoom = 4;
+    user.baseMap.center = [39.8333, -98.58334]
     userDataService.setUserData(user)
 
     service.generateBaseMap();
@@ -99,7 +99,7 @@ describe('currentMap', () => {
     let baseMap: BaseMap = new BaseMap()
     baseMap.markers = markerList
     user.baseMap = baseMap
-    user.baseMap.cord = [1, 2]
+    user.baseMap.center = [1, 2]
     userDataService.setUserData(user)
 
     service.setCurrentMap("markerId1");
@@ -113,7 +113,7 @@ describe('currentMap', () => {
     markerList.push(new Marker("markerId2", "test 2", [43, -92]))
     let user: User = new User()
     user.baseMap.markers = markerList
-    user.baseMap.cord = [1, 2]
+    user.baseMap.center = [1, 2]
     userDataService.setUserData(user)
 
     service.setCurrentMap("markerId1");
@@ -153,7 +153,7 @@ describe('fetchMapEntries', () => {
     let baseMap: BaseMap = new BaseMap()
     baseMap.markers = markerList
     user.baseMap = baseMap
-    user.baseMap.cord = [1, 2]
+    user.baseMap.center = [1, 2]
     userDataService.setUserData(user)
 
     let availableMaps: [string, string][] = service.fetchMapEntries();

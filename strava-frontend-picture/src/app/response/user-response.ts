@@ -5,8 +5,8 @@ export interface UserResponse {
 }
 
 export interface BaseMapResponse {
-  center: number
-  cord: [number, number]
+  zoom: number
+  center: [number, number]
   markers: MarkerResponse[]
 }
 
