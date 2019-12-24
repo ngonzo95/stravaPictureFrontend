@@ -51,4 +51,7 @@ export class SigninComponent implements OnInit {
     this._loginCredentails = null
   }
 
+  public isSignedIn():boolean {
+    return this._loginCredentails != null
+  }
 }

@@ -1,4 +1,4 @@
-<div *ngIf="this.loginCredentails == null; else elseBlock">
+<div *ngIf="!isSignedIn(); else elseBlock">
   <button (click)="socialSignIn('google')" class="btn btn-outline-primary">Sign in with Google</button>
 </div>
 
