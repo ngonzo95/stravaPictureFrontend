@@ -68,10 +68,10 @@ describe('GetUser', () => {
     service.getUser(userId).subscribe((user: UserResponse) => {
       expect(user.id).toBe(userId);
       expect(user.email).toBe("ngonzo95@gmail.com");
-      expect(user.baseMap.markers[0].mapId).toBe("42");
+      expect(user.basemap.markers[0].mapId).toBe("42");
     });
 
-    const req = httpMock.expectOne('http://localhost:4200/api/users/' + userId);
+    const req = httpMock.expectOne('http://localhost:4200/user/' + userId);
     expect(req.request.method).toBe("GET");
     req.flush(dummyUsers);
 
@@ -114,7 +114,7 @@ describe('GetRun', () => {
       expect(run.polyline).toEqual("some polyline");
     });
 
-    let reqString = 'http://localhost:4200/api/users/1/runs/65'
+    let reqString = 'http://localhost:4200/user/1/run/65'
 
     const req = httpMock.expectOne(reqString);
     expect(req.request.method).toBe("GET");
@@ -160,7 +160,7 @@ describe('GetRunMaps', () => {
       expect(runMap.runs).toEqual(["6", "7", "8", "9"]);
     });
 
-    let reqString = 'http://localhost:4200/api/users/1/runMaps/44'
+    let reqString = 'http://localhost:4200/user/1/run_map/44'
 
     const req = httpMock.expectOne(reqString);
     expect(req.request.method).toBe("GET");

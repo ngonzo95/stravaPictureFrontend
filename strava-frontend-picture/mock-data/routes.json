@@ -1,8 +1,8 @@
 {
-  "/api/users": "/users",
-  "/api/users/:id": "/users/:id",
-  "/api/users/:id/runs": "/users/:id/runs",
-  "/api/users/:id/runs/:runId": "/runs/:runId",
-  "/api/users/:id/runMaps" : "/users/:id/runMaps",
-  "/api/users/:id/runMaps/:runMapId": "/runMaps/:runMapId"
+  "/api/user": "/users",
+  "/api/user/:id": "/users/:id",
+  "/api/user/:id/run": "/users/:id/runs",
+  "/api/user/:id/run/:runId": "/runs/:runId",
+  "/api/user/:id/run_map" : "/users/:id/runMaps",
+  "/api/user/:id/run_map/:runMapId": "/runMaps/:runMapId"
 }

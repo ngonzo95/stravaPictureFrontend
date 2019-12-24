@@ -2,23 +2,23 @@
   "users": [{
     "id": "118338807258584882449",
     "email": "ngonzo95@gmail.com",
-    "baseMap": {
+    "basemap": {
       "zoom": 3,
-      "center": [39.8333, -98.58333],
+      "center": ["39.8333", "-98.58333"],
       "markers": [{
           "mapId": "42",
           "text": "Avon",
-          "cord": [40, -100]
+          "cord": ["40", "-100"]
         },
         {
           "mapId": "43",
           "text": "Other Place",
-          "cord": [36, -94]
+          "cord": ["36", "-94"]
         },
         {
           "mapId": "44",
           "text": "last",
-          "cord": [33, -110]
+          "cord": ["33", "-110"]
         }
       ]
     }
@@ -27,7 +27,7 @@
       "id": "42",
       "mapName": "Avon",
       "userId": "1",
-      "center": [40, -100],
+      "center": ["40", "-100"],
       "zoom": 3,
       "runs": ["1", "2", "3"]
     },
@@ -35,7 +35,7 @@
       "id": "43",
       "mapName": "OtherPlace",
       "userId": "1",
-      "center": [36, -94],
+      "center": ["36", "-94"],
       "zoom": 6,
       "runs": ["4", "5"]
     },
@@ -43,7 +43,7 @@
       "id": "44",
       "mapName": "lastPlace",
       "userId": "1",
-      "center": [33, -110],
+      "center": ["33", "-110"],
       "zoom": 9,
       "runs": ["6", "7", "8", "9"]
 

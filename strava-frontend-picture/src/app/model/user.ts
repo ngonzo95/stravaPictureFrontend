@@ -11,7 +11,7 @@ export class User {
     if (userResponse != null) {
       this.id = userResponse.id
       this.email = userResponse.email
-      this.baseMap = new BaseMap(userResponse.baseMap)
+      this.baseMap = new BaseMap(userResponse.basemap)
     } else {
       this.baseMap = new BaseMap()
     }

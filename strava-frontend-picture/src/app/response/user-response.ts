@@ -1,7 +1,7 @@
 export interface UserResponse {
   id: string
   email: string
-  baseMap: BaseMapResponse
+  basemap: BaseMapResponse
 }
 
 export interface BaseMapResponse {

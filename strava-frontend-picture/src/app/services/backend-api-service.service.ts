@@ -21,7 +21,7 @@ export class BackendApiServiceService {
    * @return{Observable<UserResponse>} the user data returned by the request
   **/
   getUser(userId: string) :Observable<UserResponse> {
-    return this.http.get<UserResponse>("http://localhost:4200/api/users/" + userId)
+    return this.http.get<UserResponse>("http://localhost:4200/user/" + userId)
   }
 
   /**
@@ -32,7 +32,7 @@ export class BackendApiServiceService {
    * @return{Observable<RunResponse>} the run data returned by the request
   **/
   getRun(userId: string, runId: string ):Observable<RunResponse> {
-    return this.http.get<RunResponse>("http://localhost:4200/api/users/" + userId + "/runs/" + runId)
+    return this.http.get<RunResponse>("http://localhost:4200/user/" + userId + "/run/" + runId)
   }
 
   /**
@@ -43,6 +43,6 @@ export class BackendApiServiceService {
    * @return{Observable<RunMapResponse>} the map data returned by the request
   **/
   getRunMap(userId: string, runMapId: string):Observable<RunMapResponse> {
-    return this.http.get<RunMapResponse>("http://localhost:4200/api/users/" + userId + "/runMaps/" + runMapId)
+    return this.http.get<RunMapResponse>("http://localhost:4200/user/" + userId + "/run_map/" + runMapId)
   }
 }
