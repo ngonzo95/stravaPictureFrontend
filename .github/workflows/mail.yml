@@ -17,4 +17,5 @@ jobs:
         npm install
         npm test
         npm run build --if-present
+      working-directory: ./strava-frontend-picture
 
