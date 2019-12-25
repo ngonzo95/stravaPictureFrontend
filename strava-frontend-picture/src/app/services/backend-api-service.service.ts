@@ -4,7 +4,6 @@ import { UserResponse } from '../response/user-response'
 import { RunResponse } from '../response/run-response'
 import { RunMapResponse } from '../response/run-map-response'
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment'
 
 /**
  * Service for making all calls to our backend api
@@ -22,7 +21,7 @@ export class BackendApiServiceService {
    * @return{Observable<UserResponse>} the user data returned by the request
   **/
   getUser(userId: string) :Observable<UserResponse> {
-    return this.http.get<UserResponse>(environment.api_url + "/user/" + userId)
+    return this.http.get<UserResponse>("http://localhost:4200/user/" + userId)
   }
 
   /**
@@ -33,7 +32,7 @@ export class BackendApiServiceService {
    * @return{Observable<RunResponse>} the run data returned by the request
   **/
   getRun(userId: string, runId: string ):Observable<RunResponse> {
-    return this.http.get<RunResponse>(environment.api_url + "/user/" + userId + "/run/" + runId)
+    return this.http.get<RunResponse>("http://localhost:4200/user/" + userId + "/run/" + runId)
   }
 
   /**
@@ -44,6 +43,6 @@ export class BackendApiServiceService {
    * @return{Observable<RunMapResponse>} the map data returned by the request
   **/
   getRunMap(userId: string, runMapId: string):Observable<RunMapResponse> {
-    return this.http.get<RunMapResponse>(environment.api_url + "/user/"  + userId + "/run_map/" + runMapId)
+    return this.http.get<RunMapResponse>("http://localhost:4200/user/" + userId + "/run_map/" + runMapId)
   }
 }
