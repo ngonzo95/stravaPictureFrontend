@@ -21,7 +21,7 @@ export class BackendApiServiceService {
   /**
    * makes a call to the /users/:id end point to get the users information
    * @param {string} userId the id of the user we are looking for
-   * @return{Observable<UserResponse>} the user data returned by the request
+   * @return {Observable<UserResponse>} the user data returned by the request
   **/
   getUser(userId: string): Observable<UserResponse> {
     return this.http.get<UserResponse>(environment.api_url + "/user/" + userId)
@@ -32,7 +32,7 @@ export class BackendApiServiceService {
    * about a particular run
    * @param {string} userId the id of the user we are looking for
    * @param {string} runId the id of the run we are looing for
-   * @return{Observable<RunResponse>} the run data returned by the request
+   * @return {Observable<RunResponse>} the run data returned by the request
   **/
   getRun(userId: string, runId: string): Observable<RunResponse> {
     return this.http.get<RunResponse>(environment.api_url + "/user/" + userId + "/run/" + runId)
@@ -43,7 +43,7 @@ export class BackendApiServiceService {
    * about a particular runMap
    * @param {string} userId the id of the user we are looking for
    * @param {string} runMapId the id of the map we are looing for
-   * @return{Observable<RunMapResponse>} the map data returned by the request
+   * @return {Observable<RunMapResponse>} the map data returned by the request
   **/
   getRunMap(userId: string, runMapId: string): Observable<RunMapResponse> {
     return this.http.get<RunMapResponse>(environment.api_url + "/user/" + userId + "/run_map/" + runMapId)
@@ -53,10 +53,28 @@ export class BackendApiServiceService {
    * makes a call to the /users/:id/runMaps/:mapId end point to get infromation
    * about a particular runMap
    * @param {string} userId the id of the user we are looking for
-   * @return{Observable<boolean>} returns true if the user has the account
+   * @return {Observable<boolean>} returns true if the user has the account
   **/
   hasAccount(userId: string): Observable<boolean> {
     return this.http.get<HasAccountResponse>(environment.api_url + "/user/"
       + userId + "/has_account").pipe(map(res => res.has_account))
+  }
+
+  /**
+  * Generates the url needed to signup a new user
+  * @param {string} userId the id of the user we are trying to signup
+  * @return {string} returns the url to signup that user
+  **/
+  generateSignupUrl(userId: string): string {
+    return environment.api_url + "/user/" + userId + "/auth/get_strava_token"
+  }
+
+  /**
+  * forces an update of the strava user.
+  * @param {string} userId the id of the user we are trying to signup
+  * @return {Observable} A response that we dont care about
+  **/
+  updateUserData(userId: string): Observable<any>{
+    return this.http.get<any> (environment.api_url + "/user/" + userId + "/update")
   }
 }

@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UserResponse } from '../response/user-response'
 import { RunResponse } from '../response/run-response'
 import { RunMapResponse } from '../response/run-map-response'
+import { environment } from '../../environments/environment'
 
 import { BackendApiServiceService } from './backend-api-service.service';
 
@@ -224,5 +225,69 @@ describe('hasAccount', () => {
     req.flush(dummyHasAccount);
 
   });
+});
 
+describe ('generate signup url', () => {
+  let injector: TestBed;
+  let service: BackendApiServiceService;
+  let httpMock: HttpTestingController;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule(
+      {
+        imports: [HttpClientTestingModule],
+        providers: [BackendApiServiceService]
+
+      });
+
+    injector = getTestBed();
+    service = injector.get(BackendApiServiceService);
+    httpMock = injector.get(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
+  });
+
+  it('returns the url to call', () => {
+    expect(service.generateSignupUrl("24")).toBe(environment.api_url + '/user/24/auth/get_strava_token')
+  });
+});
+
+describe('update user', () => {
+  let injector: TestBed;
+  let service: BackendApiServiceService;
+  let httpMock: HttpTestingController;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule(
+      {
+        imports: [HttpClientTestingModule],
+        providers: [BackendApiServiceService]
+
+      });
+
+    injector = getTestBed();
+    service = injector.get(BackendApiServiceService);
+    httpMock = injector.get(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
+  });
+
+  it('calls the right url', () => {
+    const dummyRes = {
+      "success": true
+    }
+
+    service.updateUserData("43").subscribe();
+
+    let reqString = 'http://localhost:4200/user/43/update'
+
+    const req = httpMock.expectOne(reqString);
+    expect(req.request.method).toBe("GET");
+    req.flush(dummyRes);
+
+  });
 });

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
-    AuthService,
-    GoogleLoginProvider,
-    SocialUser
+  AuthService,
+  GoogleLoginProvider,
+  SocialUser
 } from 'angular-6-social-login';
 import { MapSyncService } from '../services/map-sync.service';
 import { UserResponse } from '../response/user-response';
@@ -16,28 +16,41 @@ import { UserDataServiceService } from '../services/user-data-service.service';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-  private _loginCredentails : SocialUser
-  constructor( private socialAuthService: AuthService, private mapSyncService: MapSyncService, private api: BackendApiServiceService, private userDataService: UserDataServiceService ) {}
+  private _loginCredentails: SocialUser
+  public displaySignup: boolean = false
 
-  public socialSignIn(socialPlatform : string) {
+  constructor(private socialAuthService: AuthService, private mapSyncService: MapSyncService, private api: BackendApiServiceService, private userDataService: UserDataServiceService) { }
+
+  public socialSignIn(socialPlatform: string) {
     let socialPlatformProvider;
-    if(socialPlatform == "google"){
+    if (socialPlatform == "google") {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }
 
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
-        console.log(socialPlatform+" sign in data : " , userData);
+        console.log(socialPlatform + " sign in data : ", userData);
         this._loginCredentails = userData;
-        this.api.getUser(this._loginCredentails.id).subscribe((userResponse:UserResponse) => {
-          this.userDataService.setUserData(new User(userResponse))
-          this.mapSyncService.generateBaseMap()
+        let userId = this._loginCredentails.id
+        this.api.hasAccount(userId).subscribe((hasAccount: boolean) => {
+          if (hasAccount) {
+            this.api.updateUserData(userId).subscribe(_ => {
+              this.api.getUser(userId).subscribe((userResponse: UserResponse) => {
+                this.userDataService.setUserData(new User(userResponse))
+                this.mapSyncService.generateBaseMap()
+              });
+            });
+
+          } else {
+            window.location.href = this.api.generateSignupUrl(userId)
+          }
         });
+
       }
     );
   }
 
-  public socialSignOut(){
+  public socialSignOut() {
     this.socialAuthService.signOut().then(
       (data) => {
         this._loginCredentails = null;
@@ -51,7 +64,7 @@ export class SigninComponent implements OnInit {
     this._loginCredentails = null
   }
 
-  public isSignedIn():boolean {
+  public isSignedIn(): boolean {
     return this._loginCredentails != null
   }
 }
