@@ -48,20 +48,20 @@ describe('GetUser', () => {
         "center": 3,
         "cord": [39.8333, -98.58333],
         "markers": [{
-            "mapId": "42",
-            "text": "Avon",
-            "cord": [40, -100]
-          },
-          {
-            "mapId": "43",
-            "text": "Other Place",
-            "cord": [36, -94]
-          },
-          {
-            "mapId": "44",
-            "text": "last",
-            "cord": [33, -110]
-          }
+          "mapId": "42",
+          "text": "Avon",
+          "cord": [40, -100]
+        },
+        {
+          "mapId": "43",
+          "text": "Other Place",
+          "cord": [36, -94]
+        },
+        {
+          "mapId": "44",
+          "text": "last",
+          "cord": [33, -110]
+        }
         ]
       }
     }
@@ -102,12 +102,12 @@ describe('GetRun', () => {
 
   it('should return the ', () => {
     const dummyRun = {
-      "id":"65",
+      "id": "65",
       "userId": "1",
       "name": "Morning Run",
       "polyline": "some polyline"
     }
-    service.getRun("1", "65" ).subscribe((run: RunResponse) => {
+    service.getRun("1", "65").subscribe((run: RunResponse) => {
       expect(run.id).toBe("65");
       expect(run.userId).toBe("1");
       expect(run.name).toBe("Morning Run");
@@ -154,7 +154,7 @@ describe('GetRunMaps', () => {
       "zoom": 9,
       "runs": ["6", "7", "8", "9"]
     }
-    service.getRunMap("1", "44" ).subscribe((runMap: RunMapResponse) => {
+    service.getRunMap("1", "44").subscribe((runMap: RunMapResponse) => {
       expect(runMap.id).toBe("44");
       expect(runMap.userId).toBe("1");
       expect(runMap.runs).toEqual(["6", "7", "8", "9"]);
@@ -167,4 +167,62 @@ describe('GetRunMaps', () => {
     req.flush(dummyRunMap);
 
   });
+});
+
+describe('hasAccount', () => {
+  let injector: TestBed;
+  let service: BackendApiServiceService;
+  let httpMock: HttpTestingController;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule(
+      {
+        imports: [HttpClientTestingModule],
+        providers: [BackendApiServiceService]
+
+      });
+
+    injector = getTestBed();
+    service = injector.get(BackendApiServiceService);
+    httpMock = injector.get(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
+  });
+
+  it('returns true if the api does', () => {
+    const dummyHasAccount = {
+      "has_account": true
+    }
+
+    service.hasAccount("23").subscribe((hasAccount: boolean) => {
+      expect(hasAccount).toBe(true);
+    });
+
+    let reqString = 'http://localhost:4200/user/23/has_account'
+
+    const req = httpMock.expectOne(reqString);
+    expect(req.request.method).toBe("GET");
+    req.flush(dummyHasAccount);
+
+  });
+
+  it('returns false if the api does', () => {
+    const dummyHasAccount = {
+      "has_account": false
+    }
+
+    service.hasAccount("23").subscribe((hasAccount: boolean) => {
+      expect(hasAccount).toBe(false);
+    });
+
+    let reqString = 'http://localhost:4200/user/23/has_account'
+
+    const req = httpMock.expectOne(reqString);
+    expect(req.request.method).toBe("GET");
+    req.flush(dummyHasAccount);
+
+  });
+
 });
