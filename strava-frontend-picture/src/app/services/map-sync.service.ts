@@ -48,7 +48,7 @@ export class MapSyncService {
         this.api.getRun(userId, runMap.runs[i]).subscribe(runRes => {
           console.log("Index: " + i)
           let run: Run = new Run(runRes)
-          self.mapEditor.addRun(run, parseInt(i))
+          self.mapEditor.addRun(run, parseInt(i), runMap.runs.length)
           self.userDataService.addRun(run.id)
         })
       }

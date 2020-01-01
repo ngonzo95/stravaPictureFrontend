@@ -28,17 +28,18 @@ export class MapEditorService {
   createNewMap() {
     this.map = L.map("map")
     this.addBaseTileLayer()
-    this.setView([0,0], 2)
+    this.setView([0, 0], 2)
 
     // this.maps.set(name, this.map)
 
   }
 
-  addRun(run:Run, colorIndex: number){
+  addRun(run: Run, colorIndex: number, numRuns: number) {
     console.log("colorIndex: " + colorIndex)
-    let color:string = this.getColor(colorIndex)
+    let color: string = this.getColor(colorIndex, numRuns)
+    let opacity: number = this.getOpacity(colorIndex, numRuns)
     let latlng = polyUtil.decode(run.polyline);
-    let line = L.polyline(latlng, {color:color}).addTo(this.map)
+    let line = L.polyline(latlng, { color: color, opacity: opacity }).addTo(this.map)
     this._runs.set(run.id, line)
   }
 
@@ -55,7 +56,7 @@ export class MapEditorService {
       .addTo(this.map)
   }
 
-  clearMap(){
+  clearMap() {
     this.map.eachLayer((layer) => {
       this.map.removeLayer(layer)
     })
@@ -63,28 +64,29 @@ export class MapEditorService {
     this.addBaseTileLayer()
   }
 
-  private getColor(colorIndex: number): string {
+  private getColor(colorIndex: number, numRuns: number): string {
 
-    let startColor = [0.05, 0.11, 1]
-    let endColor = [1,0,0.35]
-    let color= []
+    let startColor = [1, 0, 0.35]
+    let endColor = [0.05, 0.11, 1]
+    let color = []
 
-    for (let i in startColor){
-      let num = startColor[i] + (endColor[i]-startColor[i])* colorIndex/30
+    for (let i in startColor) {
+      let num = startColor[i] + (endColor[i] - startColor[i]) * colorIndex / numRuns
       color.push(num)
     }
 
-    let hexColors = [Math.round(color[0]*255),Math.round(color[1]*255),Math.round(color[2]*255)]
+    let hexColors = [Math.round(color[0] * 255), Math.round(color[1] * 255), Math.round(color[2] * 255)]
 
     let colorStr = "#" + ((1 << 24) + (hexColors[0] << 16) + (hexColors[1] << 8) + hexColors[2]).toString(16).slice(1);
     console.log("color for index " + colorIndex + ": " + colorStr)
     return colorStr
-
-
-
   }
 
-  private addBaseTileLayer(){
+  private getOpacity(colorIndex: number, numRuns: number): number {
+    return (numRuns - colorIndex / 2.0) / numRuns
+  }
+
+  private addBaseTileLayer() {
     L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
       {
         "attribution": "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>",
